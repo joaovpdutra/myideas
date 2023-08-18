@@ -1,0 +1,27 @@
+The idea:
+Replicate a Gantt chart inside a gallery in Power Apps like this:
+ 
+
+Inside the gallery, besides the textual information, we will need in the "bars" section 3 rectangles: the first one will serve to make the "case" and delimitate the space among them. it will be static; other to be serve as the main bar, which the width will be dynamic; the last one is the red "line", this is a rectangle stretched to feel like only one line.
+
+First of all, we need to decide on the size of the gantt chart. This step is important to set the maximum width of the bars. For this example, we will set it at 850.
+
+We will need to calculate where the bar "begins", the X axis, and the the bar's width 
+
+Calculating the activity's X:
+608 (the X's position where all the bars should be starting)  + (850*
+	DateDiff(Project's Initial Date field;ThisItem.Initial_Date;TimeUnit.Days) / 	DateDiff(Project's Initial Date field;Project's End Date field;TimeUnit.Days)
+	)
+This will give the point where the activity bar should begin, considering the project's duration proportion. 
+Calculating the activity's width:
+
+
+DateDiff(Activity' s Initial date; Activity's End Date;TimeUnit.Days)*850 / DateDiff(Project's Initial Date; Project's End Date;TimeUnit.Days)
+
+Calculating the today bar/line:
+The today's bar must follow the today's date and will be moving every day. 
+608 (the X's position where all the bars should be starting)  + 
+DateDiff(    
+    Project's Initial date;Today();TimeUnit.Days)
+    /
+    DateDiff(Project's Initial Date ; Project's End date;TimeUnit.Days)*850 (the maximum width);
