@@ -11,7 +11,7 @@ root.title("Report creator")
 recordchoice = tk.StringVar()
 
 def getrecord():
-    recordid = recordchoice.get()
+    recordid = int(recordchoice.get())
     filltemplatepdf(recordid)
 
 
